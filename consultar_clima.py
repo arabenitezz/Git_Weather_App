@@ -3,26 +3,33 @@ import requests
 from api_key import API_KEY, API_URL
 
 @click.command()
-@click.option("--place", prompt="Nombre de la ciudad o pais", help="Nombre de la ciudad o pais de la cual se obtendrá la información sobre el clima")
-@click.option("--format", prompt="Elija un formato", type=click.Choice(['json', 'xml', 'html']), help="Es el formato en que se va a recibir los datos")
+@click.option("--lugar", prompt="Nombre de la ciudad o país", help="Nombre de la ciudad o país de la cual se obtendrá la información sobre el clima")
+@click.option("--formato", prompt="Elija un formato", type=click.Choice(['json', 'xml', 'html']), default='json', help="Formato en que se van a recibir los datos")
+@click.option("--unidad", type=click.Choice(['metric', 'standard']), default='metric', help="Unidad de medida: 'metric' para Celsius, 'standard' para Kelvin")
 
-def get_weather (place, format):
+def get_weather(lugar, formato, unidad):
     try:
         params = {
-            'q': place,
+            'q': lugar,
             'appid': API_KEY,
-            'units': 'metric',
+            'units': unidad, 
             'lang': 'es'
         }
         response = requests.get(API_URL, params=params)
         response.raise_for_status()
 
-        if format == 'json':
+        if formato == 'json':
             weather_data = response.json()
             place_name = weather_data['name']
             temp = weather_data['main']['temp']
             weather_desc = weather_data['weather'][0]['description']
-            click.echo(f'El clima en {place_name} es {weather_desc} con una temperatura de {temp}°C.')
+
+            if unidad == 'metric':
+                unit_symbol = '°C'
+            else:
+                unit_symbol = 'K'
+
+            click.echo(f'El clima en {place_name} es {weather_desc} con una temperatura de {temp}{unit_symbol}.')
         else:
             # Si es XML o HTML, mostrar el contenido directamente
             click.echo(response.text)
@@ -34,3 +41,4 @@ def get_weather (place, format):
 
 if __name__ == '__main__':
     get_weather()
+
