@@ -17,6 +17,16 @@ def get_weather (place, format):
         response = requests.get(API_URL, params=params)
         response.raise_for_status()
 
+        if format == 'json':
+            weather_data = response.json()
+            place_name = weather_data['name']
+            temp = weather_data['main']['temp']
+            weather_desc = weather_data['weather'][0]['description']
+            click.echo(f'El clima en {place_name} es {weather_desc} con una temperatura de {temp}°C.')
+        else:
+            # Si es XML o HTML, mostrar el contenido directamente
+            click.echo(response.text)
+
     except requests.exceptions.HTTPError as err:
         click.echo(f'Error al obtener los datos: {err}')
     except Exception as e:
