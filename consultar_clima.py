@@ -3,9 +3,9 @@ import requests
 from api_key import API_KEY, API_URL
 
 @click.command()
-@click.option("--lugar", prompt="Nombre de la ciudad o país", help="Nombre de la ciudad o país de la cual se obtendrá la información sobre el clima")
-@click.option("--formato", prompt="Elija un formato", type=click.Choice(['json', 'xml', 'html']), default='json', help="Formato en que se van a recibir los datos")
-@click.option("--unidad", type=click.Choice(['metric', 'standard']), default='metric', help="Unidad de medida: 'metric' para Celsius, 'standard' para Kelvin")
+@click.option("--lugar", help="Nombre de la ciudad o país de la cual se obtendrá la información sobre el clima")
+@click.option("--formato", default='json', help="Formato en que se van a recibir los datos")
+@click.option("--unidad", default='metric', help="Unidad de medida: 'metric' para Celsius, 'standard' para Kelvin")
 
 def get_weather(lugar, formato, unidad):
     try:
