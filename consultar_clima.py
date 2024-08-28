@@ -14,8 +14,13 @@ def get_weather (place, format):
             'units': 'metric',
             'lang': 'es'
         }
+        response = requests.get(API_URL, params=params)
+        response.raise_for_status()
 
     except requests.exceptions.HTTPError as err:
         click.echo(f'Error al obtener los datos: {err}')
     except Exception as e:
         click.echo(f'Ocurrió un error: {e}')
+
+if __name__ == '__main__':
+    get_weather()
