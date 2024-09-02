@@ -1,6 +1,6 @@
-import click
-import requests
-import csv
+import click # --> CLI
+import requests # --> solicitudes HTTP 
+import csv # --> manejar csv
 import io
 from api_key import API_KEY, API_URL
 
@@ -12,13 +12,16 @@ from api_key import API_KEY, API_URL
 
 def get_weather(lugar, formato, unidad):
     try:
+        # parametros para la solicitud a la API
         params = {
             'q': lugar,
             'appid': API_KEY,
             'units': unidad, 
             'lang': 'es'
         }
+        # solicitud GET
         response = requests.get(API_URL, params=params)
+        # Verifica si la solicitud fue exitosa; si no, lanza una excepción.
         response.raise_for_status()
 
         weather_data = response.json()
@@ -34,18 +37,17 @@ def get_weather(lugar, formato, unidad):
         if formato == 'json':
             click.echo(f'El clima en {place_name} es {weather_desc} con una temperatura de {temp}{unit_symbol}.')
         elif formato == 'csv':
-            output = io.StringIO()
-            writer = csv.writer(output)
+            output = io.StringIO() # Crea un objeto StringIO para almacenar datos CSV en memoria.
+            writer = csv.writer(output) # Crea un escritor CSV.
             writer.writerow(['Lugar', 'Descripción', 'Temperatura', 'Unidad'])
             writer.writerow([place_name, weather_desc, temp, unit_symbol])
             click.echo(output.getvalue())
         elif formato == 'texto':
             click.echo(f'Lugar: {place_name}\nDescripción: {weather_desc}\nTemperatura: {temp} {unit_symbol}')
-        else:
-            click.echo(response.text)
-
+    # Captura y muestra errores específicos de solicitudes HTTP
     except requests.exceptions.HTTPError as err:
         click.echo(f'Error al obtener los datos: {err}')
+    # Captura y muestra cualquier otro error general
     except Exception as e:
         click.echo(f'Ocurrió un error: {e}')
 
