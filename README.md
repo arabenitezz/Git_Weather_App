@@ -1,5 +1,3 @@
-Aquí tienes un archivo `README.md` claro y detallado para tu proyecto:  
-
 ```markdown
 # CLI para Consulta de Clima  
 
