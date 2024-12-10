@@ -1,55 +1,81 @@
-# CLI de Información Climática
+Aquí tienes un archivo `README.md` claro y detallado para tu proyecto:  
 
-Este proyecto es una herramienta de línea de comandos (CLI) que permite obtener información sobre el clima de un lugar específico usando la API de Open Weather. El usuario puede elegir el formato en que se recibe la información y la unidad de medida para la temperatura.
+```markdown
+# CLI para Consulta de Clima  
 
-## Requisitos
+Este proyecto es una herramienta de línea de comandos (CLI) que permite consultar el clima actual de cualquier ciudad o país utilizando la API de OpenWeather. Es personalizable en formato de salida y unidad de medida.  
 
-- Python 3.7 o superior
-- `requests`
-- `click`
+## Requisitos  
 
-## Instalación
+- Python 3.7 o superior  
+- Clave de API de OpenWeather (colócala en el archivo `api_key.py`)  
+- Librerías externas:  
+  - `click`: para la creación de la CLI.  
+  - `requests`: para realizar solicitudes HTTP.  
 
-1. Clona este repositorio o descarga los archivos necesarios.
+## Instalación  
 
-2. Instala las dependencias necesarias ejecutando:
-
+1. Clona este repositorio en tu máquina local:  
    ```bash
-   pip install -r requirements.txt
+   git clone <url-del-repositorio>
+   cd <nombre-del-repositorio>
+   ```  
 
-3. Crea un archivo api_key.py en la raíz del proyecto y define las siguientes variables:
+2. Instala las dependencias necesarias:  
+   ```bash
+   pip install click requests
+   ```  
 
-API_KEY = 'tu_api_key_aqui'
-API_URL = 'https://api.openweathermap.org/data/2.5/weather'
+3. Configura tu archivo `api_key.py` con las siguientes variables:  
+   ```python
+   API_KEY = 'tu_api_key_de_openweather'
+   API_URL = 'https://api.openweathermap.org/data/2.5/weather'
+   ```  
 
-Reemplaza 'tu_api_key_aqui' con tu clave de API de Open Weather.
+## Uso  
 
-## Uso
-Ejecuta el script desde la línea de comandos proporcionando los argumentos necesarios:
+Ejecuta el script desde la terminal con los siguientes parámetros:  
 
-python nombre_del_script.py --lugar "Ciudad" --formato "formato" --unidad "unidad"
+```bash
+python <nombre_del_archivo>.py --lugar <ciudad/país> --formato <formato> --unidad <unidad>
+```  
 
-## Opciones
---lugar: Nombre de la ciudad o país de la cual se obtendrá la información sobre el clima.
---formato: Formato en el que se recibirán los datos. Las opciones disponibles son:
-json (por defecto): Muestra la información en formato JSON.
-csv: Muestra la información en formato CSV.
-texto: Muestra la información en un formato de texto legible.
---unidad: Unidad de medida de la temperatura. Las opciones son:
-metric (por defecto): Temperatura en grados Celsius.
-standard: Temperatura en Kelvin.
+### Parámetros  
 
-## Manejo de Errores
-El script maneja errores comunes como:
+- `--lugar`: Especifica el nombre de la ciudad o país para consultar el clima (obligatorio).  
+- `--formato`: Define el formato de salida. Valores posibles:  
+  - `json` (por defecto)  
+  - `csv`  
+  - `texto`  
+- `--unidad`: Selecciona la unidad de temperatura. Valores posibles:  
+  - `metric` para Celsius (por defecto)  
+  - `standard` para Kelvin  
 
-Fallos en la conexión con la API.
-Respuestas no exitosas de la API.
-Errores inesperados.
-En caso de errores, se mostrará un mensaje descriptivo en la línea de comandos.
+### Ejemplos  
 
-## Licencia
-Este proyecto se distribuye bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
+1. Obtener el clima en formato JSON para Asunción:  
+   ```bash
+   python <nombre_del_archivo>.py --lugar "Asunción"
+   ```  
 
+2. Obtener el clima en formato CSV para Madrid con unidades Kelvin:  
+   ```bash
+   python <nombre_del_archivo>.py --lugar "Madrid" --formato csv --unidad standard
+   ```  
 
+3. Obtener el clima en texto para Nueva York:  
+   ```bash
+   python <nombre_del_archivo>.py --lugar "Nueva York" --formato texto
+   ```  
 
+## Manejo de errores  
 
+- Si el lugar no es válido o la solicitud falla, se mostrará un mensaje de error claro.  
+- Si ocurre cualquier otro problema, el programa también lo indicará.  
+
+## Contribuciones  
+
+Si deseas contribuir al proyecto, siéntete libre de enviar pull requests o abrir issues.  
+
+---
+Proyecto para Penguin Academy 🐧🚀
