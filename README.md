@@ -1,4 +1,3 @@
-```markdown
 # CLI para Consulta de Clima  
 
 Este proyecto es una herramienta de línea de comandos (CLI) que permite consultar el clima actual de cualquier ciudad o país utilizando la API de OpenWeather. Es personalizable en formato de salida y unidad de medida.  
